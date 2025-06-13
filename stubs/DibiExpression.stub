@@ -1,0 +1,12 @@
+<?php declare(strict_types=1);
+
+namespace Dibi;
+
+
+/**
+ * @template TValues of list<mixed> = list<mixed>
+ */
+class Expression
+{
+
+}

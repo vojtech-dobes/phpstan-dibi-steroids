@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset>
+	<config name="installed_paths" value="vendor/vojtech-dobes/php-codestyle" />
+
+	<file>src</file>
+	<file>tests</file>
+	<exclude-pattern>*/tests/generated-dibi/*</exclude-pattern>
+
+	<rule ref="Vojtechdobes" />
+
+	<!-- <rule ref="SlevomatCodingStandard.Classes.MethodSpacing">
+		<properties>
+			<property name="minLinesCount" value="1" />
+			<property name="maxLinesCount" value="1" />
+		</properties>
+
+		<include-pattern>*/tests/cases/*</include-pattern>
+	</rule> -->
+
+	<rule ref="SlevomatCodingStandard.Namespaces.UseOnlyWhitelistedNamespaces">
+		<properties>
+			<property name="allowUseFromRootNamespace" value="true" />
+			<property name="namespacesRequiredToUse" type="array">
+				<element value="PHPStan\Testing\assertSuperType" />
+				<element value="PHPStan\Testing\assertType" />
+				<element value="Vojtechdobes\Tests\DatabaseSpecificTypeInferenceSharedBase" />
+			</property>
+		</properties>
+
+		<include-pattern>*/tests/cases/*</include-pattern>
+	</rule>
+</ruleset>

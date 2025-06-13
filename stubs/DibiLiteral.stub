@@ -1,0 +1,17 @@
+<?php declare(strict_types=1);
+
+namespace Dibi;
+
+
+/**
+ * @template TValue = mixed
+ */
+class Literal
+{
+
+	/**
+	 * @param literal-string $value
+	 */
+	public function __construct($value);
+
+}

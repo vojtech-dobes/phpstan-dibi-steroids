@@ -1,0 +1,18 @@
+includes:
+  - ../../extension.neon
+
+parameters:
+  dibi:
+    database: Dibi\Connection([
+      driver: pdo
+      dsn: "sqlite::memory:"
+    ])
+
+    generatedDir: %rootDir%/../../../tests/generated-dibi
+
+services:
+  - class: Vojtechdobes\PHPStan\Dibi\StatementFilesSchemaProvider
+    arguments:
+      statementFiles:
+        main:
+          - %rootDir%/../../../tests/cases/TypeInferenceTest.database.sql

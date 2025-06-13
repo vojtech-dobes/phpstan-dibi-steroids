@@ -1,0 +1,52 @@
+includes:
+  - phpstan-baseline.neon
+  - vendor/phpstan/phpstan-phpunit/extension.neon
+  - vendor/phpstan/phpstan-phpunit/rules.neon
+  - vendor/phpstan/phpstan-strict-rules/rules.neon
+  - vendor/spaze/phpstan-disallowed-calls/extension.neon
+
+parameters:
+  checkMissingCallableSignature: true
+  disallowedFunctionCalls:
+    - function:
+        - 'dump()'
+        - 'var_dump()'
+      message: 'avoid committing debug calls'
+
+  exceptions:
+    check:
+      missingCheckedExceptionInThrows: true
+      tooWideThrowType: true
+
+    uncheckedExceptionClasses:
+      - Dibi\Exception
+      - Error
+      - LogicException
+      - Nette\IOException
+      - PHPStan\ShouldNotHappenException
+      - PHPUnit\Framework\Exception
+
+  excludePaths:
+    - tests/cases/DatabaseSpecificTypeInference
+    - tests/data
+    - tests/generated-dibi (?)
+
+  ignoreErrors:
+    - '#Class dibi referenced with incorrect case: Dibi#'
+
+  level: 8
+
+  paths:
+    - src
+    - tests
+
+  strictRules:
+    disallowedShortTernary: false
+
+  stubFiles:
+    - stubs/DibiConnection.stub
+    - stubs/DibiExpression.stub
+    - stubs/DibiLiteral.stub
+    - stubs/DibiResult.stub
+    - stubs/DibiResultIterator.stub
+    - stubs/DibiRow.stub

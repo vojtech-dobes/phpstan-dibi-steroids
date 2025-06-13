@@ -1,0 +1,48 @@
+parameters:
+  bootstrapFiles:
+    - src/bootstrap.php
+
+  dibi:
+    database: null
+    databases: null
+
+  scanDirectories:
+    - %dibi.generatedDir%
+
+  stubFiles:
+    - stubs/DibiConnection.stub
+    - stubs/DibiExpression.stub
+    - stubs/DibiLiteral.stub
+    - stubs/DibiResult.stub
+    - stubs/DibiResultIterator.stub
+    - stubs/DibiRow.stub
+
+parametersSchema:
+  dibi: structure([
+    database: schema(type(Dibi\Connection), nullable())
+    databases: schema(arrayOf(type(Dibi\Connection), string()), nullable())
+    generatedDir: string()
+  ])
+
+services:
+  - class: Vojtechdobes\PHPStan\Dibi\Config
+    arguments:
+      database: %dibi.database%
+      databases: %dibi.databases%
+      generatedDir: %dibi.generatedDir%
+
+  - class: Vojtechdobes\PHPStan\Dibi\Extensions\DibiConnectionDynamicMethodReturnTypeExtension
+    tags:
+      - phpstan.broker.dynamicMethodReturnTypeExtension
+
+  - class: Vojtechdobes\PHPStan\Dibi\Extensions\DibiConnectionDynamicStaticMethodReturnTypeExtension
+    tags:
+      - phpstan.broker.dynamicStaticMethodReturnTypeExtension
+
+  - class: Vojtechdobes\PHPStan\Dibi\Extensions\DibiResultDynamicMethodReturnTypeExtension
+    tags:
+      - phpstan.broker.dynamicMethodReturnTypeExtension
+
+  - class: Vojtechdobes\PHPStan\Dibi\Extensions\DibiRowPropertiesClassReflectionExtension
+    tags:
+      - phpstan.broker.propertiesClassReflectionExtension

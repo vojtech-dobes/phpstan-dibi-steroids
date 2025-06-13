@@ -1,0 +1,73 @@
+includes:
+  - ../../extension.neon
+
+parameters:
+  databaseCredentials:
+    mariadb:
+      driver: pdo
+      dsn: "mysql:host=127.0.0.1;port=3306;dbname=test"
+      user: test
+      pass: test
+
+    mysql:
+      driver: pdo
+      dsn: "mysql:host=127.0.0.1;port=3307;dbname=test"
+      user: test
+      pass: test
+
+    postgres:
+      driver: pdo
+      dsn: "pgsql:host=127.0.0.1;port=5432;dbname=test"
+      user: test
+      pass: test
+
+    sqlite:
+      driver: pdo
+      dsn: "sqlite::memory:"
+
+  dibi:
+    databases:
+      mariadb: Dibi\Connection(%databaseCredentials.mariadb%)
+      mysql: Dibi\Connection(%databaseCredentials.mysql%)
+      postgres: Dibi\Connection(%databaseCredentials.postgres%)
+      sqlite: Dibi\Connection(%databaseCredentials.sqlite%)
+
+    generatedDir: %rootDir%/../../../tests/generated-dibi
+
+parametersSchema:
+  databaseCredentials: structure([
+    mariadb: structure([
+      driver: string()
+      dsn: string()
+      user: string()
+      pass: string()
+    ])
+
+    mysql: structure([
+      driver: string()
+      dsn: string()
+      user: string()
+      pass: string()
+    ])
+
+    postgres: structure([
+      driver: string()
+      dsn: string()
+      user: string()
+      pass: string()
+    ])
+
+    sqlite: structure([
+      driver: string()
+      dsn: string()
+    ])
+  ])
+
+services:
+  - class: Vojtechdobes\PHPStan\Dibi\StatementFilesSchemaProvider
+    arguments:
+      statementFiles:
+        mariadb: %rootDir%/../../../tests/cases/mariadb.sql
+        mysql: %rootDir%/../../../tests/cases/mysql.sql
+        postgres: %rootDir%/../../../tests/cases/postgres.sql
+        sqlite: %rootDir%/../../../tests/cases/sqlite.sql

@@ -1,0 +1,15 @@
+<?php declare(strict_types=1);
+
+namespace Dibi;
+
+use Iterator;
+
+
+/**
+ * @template TIteratorValue of array|Row = Row<array<string, mixed>>
+ * @implements Iterator<int, TIteratorValue>
+ */
+class ResultIterator implements Iterator
+{
+
+}

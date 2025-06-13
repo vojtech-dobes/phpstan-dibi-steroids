@@ -1,0 +1,87 @@
+<?php declare(strict_types=1);
+
+namespace Dibi;
+
+use IteratorAggregate;
+
+
+/**
+ * @template TResult of array<string, mixed>|null = array<string, mixed>|null
+ * @template TRowClass of Row|null = Row
+ * @template TRowFactoryClass of Row|null = null
+ * @template TIteratorValue of array|Row = Row<array<string, mixed>>
+ * @implements IteratorAggregate<int, TIteratorValue>
+ */
+class Result implements IteratorAggregate
+{
+
+	/**
+	 * @return Row|NULL
+	 */
+	function fetch();
+
+
+
+	/**
+	 * @param int|NULL $offset
+	 * @param int|NULL $limit
+	 * @return list<Row>
+	 */
+	function fetchAll($offset, $limit);
+
+
+
+	/**
+	 * @param string|NULL $key
+	 * @param string|NULL $value
+	 * @return array<mixed>
+	 */
+	function fetchPairs($key, $value);
+
+
+
+	/**
+	 * @return mixed
+	 */
+	function fetchSingle();
+
+
+
+	/**
+	 * @param string $assoc
+	 * @return array<mixed>
+	 */
+	function fetchAssoc($assoc);
+
+
+
+	/**
+	 * @param class-string<covariant Row>|null $class
+	 * @return self
+	 */
+	function setRowClass($class);
+
+
+
+	/**
+	 * @return TRowClass is null ? null : class-string<TRowClass>
+	 */
+	function getRowClass();
+
+
+
+	/**
+	 * @template TGivenRowFactoryClass of Row
+	 * @param callable(Row<TResult&array>): TGivenRowFactoryClass $callback
+	 * @return self
+	 */
+	function setRowFactory($callback);
+
+
+
+	/**
+	 * @return ResultIterator<TIteratorValue>
+	 */
+	function getIterator();
+
+}

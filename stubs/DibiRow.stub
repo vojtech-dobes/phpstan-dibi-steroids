@@ -1,0 +1,33 @@
+<?php declare(strict_types=1);
+
+namespace Dibi;
+
+
+/**
+ * @template-covariant TRow of array<mixed> = array<mixed>
+ */
+class Row
+{
+
+	/**
+	 * @param TRow $arr
+	 */
+	public function __construct($arr);
+
+
+
+	/**
+	 * @template TKey of key-of<TRow>
+	 * @param TKey $nm
+	 * @return TRow[TKey]
+	 */
+	public function offsetGet($nm);
+
+
+
+	/**
+	 * @return TRow
+	 */
+	public function toArray();
+
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+	bootstrap="vendor/autoload.php"
+	beStrictAboutChangesToGlobalState="true"
+	beStrictAboutCoverageMetadata="true"
+	beStrictAboutOutputDuringTests="true"
+	cacheDirectory=".phpunit.cache"
+	colors="true"
+	failOnRisky="true"
+	failOnWarning="true"
+>
+	<php>
+		<ini name="error_reporting" value="-1"/>
+	</php>
+
+	<testsuites>
+		<testsuite name="with-db">
+			<directory>tests/cases/DatabaseSpecificTypeInference</directory>
+			<file>tests/cases/DatabaseSpecificTypeInferenceTest.php</file>
+			<file>tests/cases/SchemaTest.php</file>
+		</testsuite>
+
+		<testsuite name="without-db">
+			<file>tests/cases/TranslateSimulatorTest.php</file>
+			<file>tests/cases/TypeInferenceTest.php</file>
+		</testsuite>
+	</testsuites>
+</phpunit>

@@ -1,0 +1,25 @@
+<?php declare(strict_types=1);
+
+namespace Vojtechdobes\PHPStan\Dibi\Functions;
+
+use PHPStan;
+use Vojtechdobes\PHPStan\Dibi\DatabaseType;
+
+
+final class Abs implements FunctionInterface
+{
+
+	public function getReturnType(
+		DatabaseType $databaseType,
+		SubtreeResolver $subtreeResolver,
+		array $subtree,
+	): PHPStan\Type\Type
+	{
+		return Common::resolveGivenTypeOrNullWithNullableInput(
+			$subtreeResolver->getSubtreeType($subtree['sub_tree'][0]),
+			$subtreeResolver,
+			$subtree,
+		);
+	}
+
+}
